@@ -4,6 +4,7 @@ import { hash } from 'bcryptjs'
 import { InjectModel } from 'nestjs-typegoose'
 import { UpdateUserDto } from './dto/updateUser.dto'
 import { UserModel } from './user.model'
+import { Types } from 'mongoose'
 
 @Injectable()
 export class UserService {
@@ -68,5 +69,22 @@ export class UserService {
 
 	async deleteUser(id: string) {
 		return this.UserModel.findByIdAndDelete(id).exec()
+	}
+
+	async toggleFavorites(movieId: string, user: UserModel) {
+		const movieIdObjecTypes = new Types.ObjectId(movieId)
+		const { _id, favorites } = user
+
+		await this.UserModel.findByIdAndUpdate(_id, {
+			favorites: favorites.includes(movieIdObjecTypes)
+				? favorites.filter((id) => id !== movieIdObjecTypes)
+				: [...favorites, movieIdObjecTypes],
+		})
+	}
+
+	async getFavorites(_id: string) {
+		return this.UserModel.findById(_id, 'favorites')
+			.populate({ path: 'favorites', populate: { path: 'genres' } })
+			.exec()
 	}
 }

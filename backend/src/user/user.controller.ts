@@ -7,10 +7,10 @@ import {
 	Put,
 	Query,
 } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport/dist/auth.guard'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { User } from './decorators/user.decorator'
 import { UpdateUserDto } from './dto/updateUser.dto'
+import { UserModel } from './user.model'
 import { UserService } from './user.service'
 
 @Controller('users')
@@ -27,6 +27,21 @@ export class UserController {
 	@Auth()
 	async updateUser(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
 		return this.UserSrvise.updateUser(_id, dto)
+	}
+
+	@Put('profile/favorites')
+	@Auth()
+	async toggleFavorites(
+		@User() user: UserModel,
+		@Body('movieId') movieId: string,
+	) {
+		return this.UserSrvise.toggleFavorites(movieId, user)
+	}
+
+	@Get('profile/favorites')
+	@Auth()
+	async getFavorites(@User('id') _id: string) {
+		return this.UserSrvise.getFavorites(_id)
 	}
 
 	@Put('profile/:id')
