@@ -118,7 +118,7 @@ export class MovieService {
 		}
 
 		return this.MovieModel.find(options)
-			.select('-updatedAt -__v')
+			.select('-updatedAt -__v').populate('genres')
 			.sort({ createdAt: 'desc' })
 			.exec()
 	}

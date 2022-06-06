@@ -1,0 +1,30 @@
+.admin {
+	&__statistics {
+		@apply flex items-stretch mt-10 justify-between;
+	}
+
+	&__users,
+	&__popular-movie {
+		@apply air-block w-2/5;
+	}
+
+	&__users {
+		@apply flex justify-center items-center flex-col;
+		&-number {
+			@apply text-7xl font-medium mb-1;
+		}
+		&-text {
+			@apply opacity-70 text-lg;
+		}
+	}
+
+	&__popular-movie {
+		@apply text-center p-5;
+		img {
+			@apply rounded-layout shadow-lg image-like-bg;
+		}
+		h3 {
+			@apply mb-1 opacity-50 font-medium;
+		}
+	}
+}

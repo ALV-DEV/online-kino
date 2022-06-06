@@ -1,0 +1,30 @@
+.search {
+	&__wrapper {
+		@apply relative px-6 w-full;
+	}
+
+	&__list {
+		@apply absolute border border-gray-700 rounded-layout bg-gray-800 w-5/6 animate-fade z-10 max-w-full left-1/2 transform -translate-x-1/2;
+		top: calc(100% + 15px);
+	}
+
+	&__link {
+		@apply flex items-center py-3 px-4 relative;
+		&::after {
+			@apply absolute left-full h-0 w-[2px] bg-transparent;
+			content: '';
+			top: 28%;
+			transition: height 0.3s ease-in-out,
+				background-color 0.3s ease-in-out;
+		}
+		&:hover::after {
+			@apply bg-primary h-2/5;
+		}
+		img {
+			@apply rounded-image;
+		}
+		&__text {
+			@apply ml-3 text-white truncate;
+		}
+	}
+}

@@ -1,0 +1,6 @@
+.header {
+	@apply flex justify-between items-center mt-8;
+	button {
+		@apply bg-primary bg-opacity-80;
+	}
+}
