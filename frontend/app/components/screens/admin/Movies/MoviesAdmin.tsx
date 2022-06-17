@@ -9,13 +9,23 @@ import AdminNavigation from '../admin-navigation/AdminNavigation'
 import useMoviesAdmin from './useMoviesAdmin'
 
 const MoviesAdmin = () => {
-	const { data, deleteAsync, isLoading, searchTerm, handleSearch } =
-		useMoviesAdmin()
+	const {
+		data,
+		deleteAsync,
+		isLoading,
+		searchTerm,
+		handleSearch,
+		createAsync,
+	} = useMoviesAdmin()
 	return (
 		<Meta title="Users">
 			<AdminNavigation />
 			<Heading title="Фильмы" />
-			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
+			<AdminHeader
+				handleSearch={handleSearch}
+				searchTerm={searchTerm}
+				onClick={createAsync}
+			/>
 			<AdminTable
 				headerItems={['Название', 'Жанры', 'Рейтинг']}
 				isLoading={isLoading}

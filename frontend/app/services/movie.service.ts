@@ -12,12 +12,32 @@ class MovieService {
 		})
 	}
 
+	async create() {
+		return instence.post<string>(getMoviehUrl())
+	}
+
+	async getById(id: string) {
+		return instence.get<IMovie>(getMoviehUrl(`/${id}`))
+	}
+
+	async getByGenres(genres: string[]) {
+		return $api.post<IMovie[]>(getMoviehUrl(`/by-genres`), { genres })
+	}
+
+	async getByActor(actorId: string) {
+		return $api.get<IMovie[]>(getMoviehUrl(`/by-actor/${actorId}`))
+	}
+
 	async deleteMovie(id: string) {
 		return instence.delete<IMovie>(getMoviehUrl(`/${id}`))
 	}
 
 	async getMostPopularMovies() {
 		return $api.get<IMovie[]>(getMoviehUrl('most-popular'))
+	}
+
+	async update(id: string, data: IMovie) {
+		return instence.put<IMovie>(getMoviehUrl(`/${id}`), data)
 	}
 }
 

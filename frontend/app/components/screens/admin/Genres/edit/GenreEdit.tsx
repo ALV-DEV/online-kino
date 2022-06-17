@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form'
+import dynamic from 'next/dynamic'
+import { Controller, useForm } from 'react-hook-form'
 
 import Heading from '@/components/ui/Heading/Heading'
 import Loader from '@/components/ui/Loader/Loader'
@@ -17,6 +18,10 @@ import AdminNavigation from '../../admin-navigation/AdminNavigation'
 
 import { useGenreEdit } from './useGenreEdit'
 
+const TextEditor = dynamic(() => import('@/ui/form-elements/TextEditor'), {
+	ssr: false,
+})
+
 const GenreEdit = () => {
 	const {
 		handleSubmit,
@@ -24,6 +29,7 @@ const GenreEdit = () => {
 		formState: { errors },
 		setValue,
 		getValues,
+		control,
 	} = useForm<IGenre>({
 		mode: 'onChange',
 	})
@@ -67,9 +73,26 @@ const GenreEdit = () => {
 								error={errors.icon}
 								style={{ width: '31%' }}
 							/>
-							<div>{/* Text Editor  */}</div>
-							<Button>Обновить</Button>
+							<div className="flex-1">
+								<Controller
+									control={control}
+									name="description"
+									defaultValue=""
+									render={({
+										field: { value, onChange },
+										fieldState: { error },
+									}) => (
+										<TextEditor
+											onChange={onChange}
+											placeholder="Описание"
+											value={value}
+											error={error}
+										/>
+									)}
+								/>
+							</div>
 						</div>
+						<Button>Обновить</Button>
 					</>
 				)}
 			</form>

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
@@ -13,6 +14,7 @@ import { errosRequest } from '@/utils/erros'
 const useGenresAdmin = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouceSearch = useDebounce(searchTerm, 500)
+	const { push } = useRouter()
 	const queryData = useQuery(
 		['get genres for admin', debouceSearch],
 		() => genreService.getGenres(debouceSearch),
@@ -46,6 +48,21 @@ const useGenresAdmin = () => {
 		}
 	)
 
+	const { mutateAsync: createAsync } = useMutation(
+		'create genre in admin',
+		() => genreService.create(),
+		{
+			onError: (error) => {
+				errosRequest(error, 'Create genre')
+			},
+
+			onSuccess: ({ data: _id }) => {
+				toastr.success('Создание', 'Жанр создан')
+				push(`/manage/genres/edit/${_id}`)
+			},
+		}
+	)
+
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(e.target.value)
 	}
@@ -56,8 +73,9 @@ const useGenresAdmin = () => {
 			...queryData,
 			deleteAsync,
 			searchTerm,
+			createAsync,
 		}),
-		[queryData, searchTerm, deleteAsync]
+		[queryData, searchTerm, deleteAsync, createAsync]
 	)
 }
 

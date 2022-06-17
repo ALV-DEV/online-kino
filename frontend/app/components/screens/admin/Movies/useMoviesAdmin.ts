@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
@@ -14,6 +15,7 @@ import { getGenresList } from '@/utils/genres'
 const useMoviesAdmin = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouceSearch = useDebounce(searchTerm, 500)
+	const { push } = useRouter()
 	const queryData = useQuery(
 		['get movies for admin', debouceSearch],
 		() => movieService.getMovies(debouceSearch),
@@ -32,6 +34,21 @@ const useMoviesAdmin = () => {
 				),
 			onError: (error) => {
 				errosRequest(error, 'User list')
+			},
+		}
+	)
+
+	const { mutateAsync: createAsync } = useMutation(
+		'create actor in admin',
+		() => movieService.create(),
+		{
+			onError: (error) => {
+				errosRequest(error, 'Create movie')
+			},
+
+			onSuccess: ({ data: _id }) => {
+				toastr.success('Создание', 'Фильм добавлен')
+				push(`/manage/movies/edit/${_id}`)
 			},
 		}
 	)
@@ -61,8 +78,9 @@ const useMoviesAdmin = () => {
 			...queryData,
 			deleteAsync,
 			searchTerm,
+			createAsync,
 		}),
-		[queryData, searchTerm, deleteAsync]
+		[queryData, searchTerm, deleteAsync, createAsync]
 	)
 }
 

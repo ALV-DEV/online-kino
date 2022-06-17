@@ -21,6 +21,13 @@ class GenreService {
 		return instance.get<IGenre>(getGenrehUrl(`/${id}`))
 	}
 
+	async getBySlug(slug: string) {
+		return $api.get<IGenre>(getGenrehUrl(`/by-slug/${slug}`))
+	}
+
+	async create() {
+		return instance.post<string>(getGenrehUrl(`/`))
+	}
 	async deleteGenre(id: string) {
 		return instance.delete<IGenre>(getGenrehUrl(`/${id}`))
 	}

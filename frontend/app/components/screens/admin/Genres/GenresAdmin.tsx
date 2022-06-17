@@ -9,13 +9,23 @@ import AdminNavigation from '../admin-navigation/AdminNavigation'
 import useGenresAdmin from './useGenresAdmin'
 
 const GenresAdmin = () => {
-	const { data, deleteAsync, isLoading, searchTerm, handleSearch } =
-		useGenresAdmin()
+	const {
+		data,
+		deleteAsync,
+		isLoading,
+		searchTerm,
+		handleSearch,
+		createAsync,
+	} = useGenresAdmin()
 	return (
 		<Meta title="Users">
 			<AdminNavigation />
 			<Heading title="Жанры" />
-			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
+			<AdminHeader
+				handleSearch={handleSearch}
+				searchTerm={searchTerm}
+				onClick={createAsync}
+			/>
 			<AdminTable
 				headerItems={['Название', 'SLUG']}
 				isLoading={isLoading}

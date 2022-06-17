@@ -34,7 +34,7 @@ export class MovieService {
 	}
 
 	async byActor(actorId: string) {
-		const movie = await this.MovieModel.findOne({ actors: actorId }).exec()
+		const movie = await this.MovieModel.find({ actors: actorId }).exec()
 
 		if (!movie) {
 			throw new NotFoundException('Такого фильма не существует')
@@ -118,7 +118,8 @@ export class MovieService {
 		}
 
 		return this.MovieModel.find(options)
-			.select('-updatedAt -__v').populate('genres')
+			.select('-updatedAt -__v')
+			.populate('genres')
 			.sort({ createdAt: 'desc' })
 			.exec()
 	}

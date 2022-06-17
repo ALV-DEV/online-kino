@@ -37,7 +37,7 @@ export const useGenreEdit = (setValue: UseFormSetValue<IGenre>) => {
 		{
 			onSuccess: ({ data }) => {
 				toastr.success('Genre', 'Updated genre')
-				push('/manage/geners')
+				push('/manage/genres')
 			},
 			onError: (error) => {
 				errosRequest(error, 'Edit genre')
