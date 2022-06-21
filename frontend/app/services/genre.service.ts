@@ -1,5 +1,6 @@
 import instance, { $api } from 'api/interceptors'
 
+import { ICollection } from '@/components/screens/Collections/collections.interface'
 import { IGerneEdit } from '@/components/screens/admin/Genres/edit/GenreEdit.interface'
 
 import { IGenre } from '@/shared/types/movie.types'
@@ -34,6 +35,10 @@ class GenreService {
 
 	async update(id: string, data: IGerneEdit) {
 		return instance.put<IGenre>(getGenrehUrl(`/${id}`), data)
+	}
+
+	async getCollections() {
+		return $api.get<ICollection[]>(getGenrehUrl('/collections'))
 	}
 }
 

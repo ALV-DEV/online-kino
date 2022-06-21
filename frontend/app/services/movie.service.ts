@@ -20,6 +20,10 @@ class MovieService {
 		return instence.get<IMovie>(getMoviehUrl(`/${id}`))
 	}
 
+	async getBySlug(slug: string) {
+		return $api.get<IMovie>(getMoviehUrl(`/by-slug/${slug}`))
+	}
+
 	async getByGenres(genres: string[]) {
 		return $api.post<IMovie[]>(getMoviehUrl(`/by-genres`), { genres })
 	}
@@ -38,6 +42,10 @@ class MovieService {
 
 	async update(id: string, data: IMovie) {
 		return instence.put<IMovie>(getMoviehUrl(`/${id}`), data)
+	}
+
+	async updateCountOpened(slug: string) {
+		return $api.put<IMovie>(getMoviehUrl(`update-count-opened/${slug}`))
 	}
 }
 

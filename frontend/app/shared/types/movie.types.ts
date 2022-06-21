@@ -35,3 +35,10 @@ export interface IMovie {
 	countOpened: number
 	parameters: IParameters
 }
+
+export interface IRating {
+	_id: string
+	movie: string
+	user: string
+	value: number
+}

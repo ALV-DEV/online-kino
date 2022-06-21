@@ -20,7 +20,7 @@ const PopularMovies = () => {
 	) : (
 		<MovieList
 			link="/trending"
-			movies={popularMovies || []}
+			movies={popularMovies?.slice(0, 3) || []}
 			title="Популярные фильмы"
 		/>
 	)

@@ -1,0 +1,40 @@
+.palyer {
+	@apply mt-12 rounded-2xl overflow-hidden shadow-xl relative animate-fade;
+
+	&__controls {
+		@apply flex-center-between absolute bottom-3 left-6 right-6;
+		> div:first-child {
+			@apply flex-center-between;
+			> button {
+				@apply text-2xl text-white mr-3 outline-none opacity-60 hover:opacity-100 transition-opacity;
+			}
+
+			.playbtn {
+				@apply text-4xl;
+			}
+		}
+
+		> div:last-child {
+			@apply flex items-center;
+			> button {
+				@apply text-white text-3xl outline-none opacity-60 hover:opacity-100 transition-opacity;
+			}
+		}
+	}
+
+	&__time {
+		@apply flex items-center text-white ml-4 opacity-60;
+		> p:nth-child(2) {
+			@apply mx-2;
+		}
+	}
+
+	&__progressbar-container {
+		@apply absolute left-4 right-4 bottom-14 bg-gray-600 rounded-layout h-1;
+		width: calc(100% - 2rem);
+	}
+
+	&__progressbar {
+		@apply rounded-2xl h-full bg-primary;
+	}
+}
