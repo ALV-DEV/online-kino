@@ -4,12 +4,13 @@ import Cookies from 'js-cookie'
 import { removeTokens } from '@/services/auth/auth.helper'
 import authService from '@/services/auth/auth.service'
 
-import { APP_URL } from '@/config/api.config'
+import { APP_SERVER_URL, APP_URL } from '@/config/api.config'
+import { IS_PRODUCTION } from '@/config/constants'
 
 import { errorCath } from './api.helpers'
 
 export const $api = axios.create({
-	baseURL: APP_URL,
+	baseURL: IS_PRODUCTION ? APP_SERVER_URL : APP_URL,
 	headers: {
 		'Content-Type': 'application/json',
 	},

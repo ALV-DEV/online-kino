@@ -62,6 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
 				trandingMovies,
 				trandingActors,
 			} as IHome,
+			revalidate: 60,
 		}
 	} catch (error) {
 		return {

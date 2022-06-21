@@ -9,7 +9,8 @@ import { errosRequest } from '@/utils/erros'
 import { useFavorites } from '../../Layout/Sidebar/Movies/FavoriteMovies/useFavorites'
 
 import styles from './FavoritesButton.module.scss'
-import HeartImg from './heart-animation.png'
+
+// import HeartImg from './heart-animation.png'
 
 const FavoritesButton: FC<{ movieId: string }> = ({ movieId }) => {
 	const [isSmashed, setIsSmashed] = useState(false)
@@ -43,7 +44,7 @@ const FavoritesButton: FC<{ movieId: string }> = ({ movieId }) => {
 			className={cn(styles.button, {
 				[styles.animate]: isSmashed,
 			})}
-			style={{ backgroundImage: `url(${HeartImg.src})` }}
+			style={{ backgroundImage: `url('/heart-animation.png')` }}
 		></button>
 	)
 }
